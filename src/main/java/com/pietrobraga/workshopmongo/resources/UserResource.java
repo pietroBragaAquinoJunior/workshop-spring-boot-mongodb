@@ -4,10 +4,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.Servlet;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +52,14 @@ public class UserResource {
 		User user = userService.findById(id);
 		UserDTO userDTO = new UserDTO(user);
 		return ResponseEntity.ok().body(userDTO);
+		
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable String id){
+		
+		userService.delete(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 		
 	}
 	
