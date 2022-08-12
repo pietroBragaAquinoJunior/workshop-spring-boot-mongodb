@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pietrobraga.workshopmongo.domain.User;
 import com.pietrobraga.workshopmongo.repositories.UserRepository;
+import com.pietrobraga.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -16,6 +17,11 @@ public class UserService {
 
 	public List<User> findAll(){
 		return repository.findAll();
+	}
+	
+	public User findById(String id) {
+		User user = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado."));
+		return user;
 	}
 	
 }
